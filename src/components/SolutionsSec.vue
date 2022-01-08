@@ -183,7 +183,7 @@ export default {
   mixins:[DataMixin],
   mounted() {
     
-
+    
     gsap.from(".sol-card", {
        scrollTrigger: {
         trigger: ".sol-card",

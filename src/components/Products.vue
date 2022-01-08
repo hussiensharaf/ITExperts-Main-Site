@@ -9,23 +9,27 @@
         <h1 class="sec-d-hd black--text mb-3">Our Products</h1>
       </v-row>
 
-      <v-row no-gutters class="prod-row" v-for="index in 1" :key="index">
-        <v-col justify="center" align="center" cols="12" xl="6" lg="6" sm="12">
-          <v-card
-            align="center"
-            class="prod-card red mt-6 pa-5"
-            min-height="55vh"
-            flat
-          >
-            <v-card-title class="justify-center"
-              >product {{ index }}</v-card-title
-            >
+      <v-row no-gutters class="prod-row" v-for="index in 5" :key="index">
+        <v-col cols="12" xl="6" lg="6" sm="12">
+          <v-card class="prod-card mt-6 pa-5" min-height="55vh" flat>
+            <v-card-title>product {{ index }}</v-card-title>
             <v-card-text style="min-height: 110px !important">
               pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
+              pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla pla
             </v-card-text>
-            <v-card-actions class="justify-center">
+            <v-card-actions>
               <v-btn
-                class="k-in-t-btn white--text px-4 mx-2"
+                class="contact-btn blue white--text px-4 mx-2"
                 elevation="2"
                 rounded
                 @click="goToId('contact')"
@@ -38,12 +42,21 @@
             </v-card-actions>
           </v-card>
         </v-col>
+        <v-col justify="center" align="center" cols="12" xl="6" lg="6" sm="12">
+          <v-img
+            class="prod-img mt-6"
+            :src="require('../assets/imgs/' + 'charts.png')"
+          >
+          </v-img>
+        </v-col>
       </v-row>
     </v-col>
   </v-row>
 </template>
 
 <style scoped>
+.contact-btn {
+}
 </style>
 
 <script>
@@ -55,14 +68,28 @@ export default {
   name: "SolutionsSec",
 
   mounted() {
-    gsap.from(".prod-card", {
-      scrollTrigger: {
-        trigger: ".prod-card",
-      },
-      opacity: 0,
-      x: 500,
-      duration: 0.5,
-      stagger: 0.3,
+    gsap.utils.toArray(".prod-card").forEach((item) => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+        },
+        opacity: 0,
+        x: -500,
+        duration: 1,
+        stagger: 0.1,
+      });
+    });
+
+    gsap.utils.toArray(".prod-img").forEach((item) => {
+      gsap.from(item, {
+        scrollTrigger: {
+          trigger: item,
+        },
+        opacity: 0,
+        x: 500,
+        duration: 1,
+        stagger: 0.1,
+      });
     });
   },
 };
