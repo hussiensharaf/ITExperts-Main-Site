@@ -19,6 +19,7 @@
           class="ml-5 mt-2"
           v-for="(item, index) in this.navItems"
           :key="index"
+          @click="goTo(index)"
         >
           <v-list-item-title
             ><a :href="item.ref" class="nav-item">{{
@@ -163,21 +164,27 @@ export default {
           icon: "fas fa-globe",
           ref:'#solution'
         },
+        
+        {
+          name: "Products",
+          icon: "fas fa-shopping-bag",
+          ref:'#products'
+        },
         {
           name: "Contact Us",
           icon: "fas fa-phone",
           ref:'#contact'
-        },
-        {
-          name: "Products",
-          icon: "fas fa-phone",
-          ref:'#products'
-        },
+        }
       ]
       
     };
   },
-   mixins: [DataMixin],
+   mixins: [DataMixin], 
+   methods:{
+     goTo(index){
+       this.goToId(this.navItems[index].ref)
+     }
+   }
   
 };
 </script>

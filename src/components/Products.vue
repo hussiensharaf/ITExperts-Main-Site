@@ -42,7 +42,15 @@
             </v-card-actions>
           </v-card>
         </v-col>
-        <v-col justify="center" align="center" cols="12" xl="6" lg="6" sm="12">
+        <v-col
+          justify="center"
+          align="center"
+          cols="12"
+          xl="6"
+          lg="6"
+          sm="12"
+          :class="index % 2 == 0?'order-first':''"
+        >
           <v-img
             class="prod-img mt-6"
             :src="require('../assets/imgs/' + 'charts.png')"
