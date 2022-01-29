@@ -18,10 +18,10 @@
         <v-col cols="12" xl="6" lg="6" sm="12">
           <v-card class="prod-card mt-6 pa-5" min-height="55vh" flat>
             <v-card-title class="product-name">{{ item.prodName }}</v-card-title>
-            <v-card-text style="min-height: 110px !important">
+            <v-card-text class="product-desc" style="min-height: 110px !important">
               {{ item.desc }}
             </v-card-text>
-            <v-card-text style="min-height: 110px !important">
+            <v-card-text class="product-desc" style="min-height: 110px !important">
               {{ item.subDesc }}
             </v-card-text>
             <v-card-actions>
@@ -65,14 +65,17 @@
   font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
   font-size: 32px;
   background: #008080;
-background: #008080;
-background: -o-linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
-background: -webkit-linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
-background: -moz-linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
-background: linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
--webkit-background-clip: text;
-background-clip: text;
--webkit-text-fill-color: transparent;
+  background: -o-linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
+  background: -webkit-linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
+  background: -moz-linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
+  background: linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.product-desc{
+  font-family: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  font-size: 1em;
 }
 </style>
 
@@ -87,12 +90,14 @@ export default {
     return {
       items: [
         {
-          imgName: "charts.png",
-          desc: `A solution for allowing end users to dynamically generate queries and reports; and save their preferences. It can be plugged into different database management systems.  it has modern inteface with awsome controls and  full featrued data grids with all possible sets of filtering and grouping  and sorting like exel   and has report viwer ,for datavisulaization with multi tabs so it may show several reports  and data grids at same time , `,
-          subDesc:'supports pdf merge from several data sources includes exel, data export to exel csv, has integrations with several google maps apis  ',
+          imgName: "Big-Data.jpg",
+          desc: `DC is a solution for allowing end users to dynamically generate queries and reports and save their preferences. DC can be connected to different DBMS. it has modern inteface with professional controls and fully featrued data grids with all possible sets of filtering, grouping and sorting like Excel.`,
+          subDesc:`DC also designed to display the final data in a report viewer and can display more than one data grid and reports at the same time in different tabs.
+                    DC supports PDF merging from multiple data sources and is designed to export data as Excel and CSV files eg.
+                    DC also can integrate with google maps APIs.`,
           prodName: "DataChannel (DC)",
         },
-        {
+        /*{
           imgName: "charts.png",
           desc: `A solution for allowing end users to process and extract data from Big Data sets.`,
           prodName: "DBV",
@@ -101,26 +106,26 @@ export default {
           imgName: "charts.png",
           desc: `A solution for processing unlimited text files on the fly.`,
           prodName: "BDP",
-        },
+        },*/
         {
-          imgName: "PowerBI.png",
-          desc: `monitoring system for companies those counting on working on PCs , it records opened programs and browsers tabs for each employee and how much he spends on each , takes screenshots , show activity status   `,
-          subDesc:'itegrate with admin panels and reports shows every emplyee performance ',
+          imgName: "time-tracker.jpg",
+          desc: `Easy Logging is a monitoring system for businesses that rely on PCs. It records open programs even tabs opened in browsers for each employee and the amount of time they spend.`,
+          subDesc:`Easy Logging takes screenshots, show activity status, integrates with admin panels and finally it generates reports on each emplyee's performance.`,
           prodName: "Easy Logging",
         },
         {
-          imgName: "charts.png",
-          desc: `A solution for generating reports from dynamically changing databases. It can be installed as a front-end for any Sqlserver DB.`,
-          prodName: "Dynamic Report System (DRS)",
+          imgName: "PowerBI.png",
+          desc: `Create amazing dashboards, easily to connect and creating memorable reports personalized with your KPIs and brand.`,
+          subDesc:'Help you connecting to all your data sources with the scale to analyze, share, and promote insights across your organization while maintaining data accuracy, consistency, and security.',
+          prodName: "Data Visualization",
         },
         {
-          imgName: "charts.png",
-          desc: `supports data syncronations between two data sources eg. data bases on separte data base servers through installed windows service that is working whenever your pc is running 
-          ,user can set whatever interval time he wants , based on query strings for each table integrate with many ERP systems`,
+          imgName: "WinServices.jpg",
+          desc: `Supports data synchronization between two data sources, for example Databases on separte database servers through installed windows service that is working whenever your pc is running.`,
           
  
-          subDesc:'also provides you with auto emailing sending based on predefined actions set ', 
-          prodName: "Windows Service Based Solution",
+          subDesc:'Users can set the interval they want, based on query strings for each table integrates with many ERP systems. It also provides you with automatic email sending based on preset actions.', 
+          prodName: "Windows Services - Based Solutions",
         },
       ],
     };
