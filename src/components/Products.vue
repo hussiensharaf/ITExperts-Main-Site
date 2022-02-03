@@ -91,18 +91,13 @@ export default {
       items: [
         {
           imgName: "Big-Data.jpg",
-          desc: `DC is a solution for allowing end users to dynamically generate queries and reports and save their preferences. DC can be connected to different DBMS. it has modern inteface with professional controls and fully featrued data grids with all possible sets of filtering, grouping and sorting like Excel.`,
+          desc: `DC is a solution for allowing end users to dynamically generate queries and reports and save their preferences. DC can be connected to different DBMS. It has modern inteface with professional controls and fully featrued data grids with all possible sets of filtering, grouping and sorting like Excel.`,
           subDesc:`DC also designed to display the final data in a report viewer and can display more than one data grid and reports at the same time in different tabs.
-                    DC supports PDF merging from multiple data sources and is designed to export data as Excel and CSV files eg.
-                    DC also can integrate with google maps APIs.`,
+                    DC supports PDF merging from multiple data sources and is designed to export data as Excel and CSV files etc.
+                    DC also can integrate with other systems using APIs.`,
           prodName: "DataChannel (DC)",
         },
         /*{
-          imgName: "charts.png",
-          desc: `A solution for allowing end users to process and extract data from Big Data sets.`,
-          prodName: "DBV",
-        },
-        {
           imgName: "charts.png",
           desc: `A solution for processing unlimited text files on the fly.`,
           prodName: "BDP",
@@ -122,10 +117,13 @@ export default {
         {
           imgName: "WinServices.jpg",
           desc: `Supports data synchronization between two data sources, for example Databases on separte database servers through installed windows service that is working whenever your pc is running.`,
-          
- 
           subDesc:'Users can set the interval they want, based on query strings for each table integrates with many ERP systems. It also provides you with automatic email sending based on preset actions.', 
           prodName: "Windows Services - Based Solutions",
+        },
+        {
+          imgName: "AI.jpg",
+          desc: `All our product can integrate with Artificial Intelligence platforms such as Tensorflow and Pytorch.`,
+          prodName: "Integration with AI Platforms",
         },
       ],
     };
