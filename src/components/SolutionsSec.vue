@@ -2,13 +2,13 @@
   <v-row no-gutters style="background-color: white" id="solution">
     <v-col cols="12">
       <v-row no-gutters justify="center">
-        <h1 class="sec-d-hd black--text mb-3">Our Solutions</h1>
+        <h1 class="section__header mb-3">Our Solutions</h1>
       </v-row>
 
       <v-row no-gutters justify="center" class="sol-row">
         <v-col justify="center" align="center" cols="12" xl="3" lg="3" sm="12"
           v-for="(sol, index) in this.solutionsData" :key="index">
-          <v-card align="center" class="sol-card grey lighten-5 ma-6 pa-5" min-height="55vh" max-width="500px" flat>
+          <v-card align="center" class="sol-card grey lighten-5 ma-6 py-5" min-height="55vh" max-width="500px" flat>
             <v-icon v-text="sol.icon" class="sol-icon my-3" size="80"> </v-icon>
 
             <v-card-title class="justify-center">{{ sol.title }}</v-card-title>
@@ -16,7 +16,7 @@
             <v-card-actions class="justify-center">
               <v-btn class="contact-btn px-4 mx-2" rounded @click="goToId('contact')">
                 Get in touch
-                <v-icon class="ml-2" size="18" color="white">fas fa-long-arrow-alt-right</v-icon>
+                <v-icon class="ml-2" size="15">fas fa-long-arrow-alt-right</v-icon>
               </v-btn>
             </v-card-actions>
           </v-card>

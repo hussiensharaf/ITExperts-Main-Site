@@ -3,7 +3,7 @@
     <Carousel />
     <ScrollDownBtn />
     <SolutionsSec />
-    <Products/>
+    <Products />
     <ContactSec />
     <ScrollUpBtn />
   </v-container>
@@ -30,4 +30,3 @@ export default {
   }
 };
 </script>
- 

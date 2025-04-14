@@ -1,13 +1,11 @@
 <template>
   <v-card id="nav">
-    <v-app-bar :flat="scrollPosition < 500 ? true : false" :absolute="this.$vuetify.breakpoint.smAndDown"
-      :fixed="!this.$vuetify.breakpoint.smAndDown" dark
-      :class="[scrollPosition >= 100 ? 'change_color' : 'transparent']">
+    <v-app-bar elevation="0" :absolute="this.$vuetify.breakpoint.smAndDown" :fixed="!this.$vuetify.breakpoint.smAndDown"
+      dark :class="[scrollPosition >= 100 ? 'change_color' : 'transparent']">
 
       <v-app-bar-title>
         <div class="d-flex" style="width: 120px; height: 120px; filter: grayscale(1) brightness(2.2);">
-          <v-img @click="goToId('nav')" src="../../assets/logo.png"
-            class="ctitle logo white--text font-weight-black pl-7 pt-2" />
+          <v-img @click="goToId('nav')" src="../../assets/logo.png" class="ctitle logo" />
         </div>
       </v-app-bar-title>
 
@@ -24,8 +22,7 @@
 
       <template>
         <v-spacer></v-spacer>
-        <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" @click="drawer = true"
-          color="white"></v-app-bar-nav-icon>
+        <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" @click="drawer = true" />
       </template>
     </v-app-bar>
 
@@ -79,7 +76,7 @@ a {
 .v-list-item a.nav-item,
 .v-list-item .v-icon {
   transition: color 0.4s ease;
-  color: rgb(245, 245, 245) !important;
+  color: rgba(255, 255, 255, 0.979) !important;
 }
 
 .v-list-item:hover a.nav-item,
@@ -89,7 +86,7 @@ a {
 
 
 .ctitle {
-  font-size: clamp(16px, 3vw, 32px);
+  /* font-size: clamp(16px, 3vw, 32px); */
   font-family: "Courier New", monospace;
 }
 

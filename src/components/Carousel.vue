@@ -1,48 +1,27 @@
 <template>
-     <v-row no-gutters style="height: 100vh">
-      <v-col cols="12">
-        <v-carousel
-          progress
-          show-arrows-on-hover
-          interval="6000"
-          height="100vh"
-          cycle
-          @change="updateIndex"
-        >
-          <template v-slot:prev="{ on, attrs }">
-            <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon large>mdi-chevron-left</v-icon>
-            </v-btn>
-          </template>
-          <template v-slot:next="{ on, attrs }">
-            <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon large>mdi-chevron-right</v-icon>
-            </v-btn>
-          </template>
-          <v-carousel-item
-            ripple
-            v-for="(item, i) in items"
-            :key="i"
-            :src="require('../assets/imgs/' + item.src)"
-            class="pa-0 ma-0"
-          >
-            <div class="tph" ref="tph">ITEM provides</div>
-            <div class="sbh" ref="sbh"></div>
-            <div class="desc" ref="desc">
-              {{ solutionsData[i].subTitle }}
-            </div>
-          </v-carousel-item>
-        </v-carousel>
-      </v-col>
-    </v-row>
+  <v-row no-gutters style="height: 100vh">
+    <v-col cols="12">
+      <v-carousel progress show-arrows-on-hover interval="6000" height="100vh" cycle @change="updateIndex">
+        <v-carousel-item ripple v-for="(item, i) in items" :key="i" :src="require('../assets/imgs/' + item.src)"
+          class="pa-0 ma-0">
+          <div class="tph montserrat-alternates-extrabold" ref="tph">ITEM provides</div>
+          <div class="sbh montserrat-alternates-extrabold" ref="sbh"></div>
+          <div class="desc" ref="desc">
+            {{ solutionsData[i].subTitle }}
+          </div>
+        </v-carousel-item>
+      </v-carousel>
+    </v-col>
+  </v-row>
 </template>
 
-<style scoped >
+<style scoped>
 .tph {
   margin-left: 8vw;
   margin-top: 200px;
   font-size: clamp(5px, 1.5rem, 28px);
 }
+
 .sbh {
   margin-left: 11vw;
   margin-top: 0.4vw;
@@ -50,6 +29,7 @@
   font-size: clamp(5px, 2rem, 35px);
   z-index: 3;
 }
+
 .desc {
   margin-left: 11vw;
   margin-top: 0.4vw;
@@ -61,18 +41,19 @@
 .tph,
 .sbh,
 .desc {
-  /*font-family: fantasy;*/
   align-self: center !important;
   visibility: hidden;
   opacity: 0;
   color: white;
 }
+
 @keyframes mymove {
   from {
     margin-top: 25vh;
     display: none;
     opacity: 0;
   }
+
   to {
     margin-top: 30vh;
     display: block;
@@ -94,12 +75,14 @@
 .new-transition-leave-active {
   position: absolute;
 }
+
 .new-transition-enter-active,
 .new-transition-leave,
 .new-transition-leave-to {
   transition: 2000ms;
   /* here you can define your desired time for transition */
 }
+
 .new-transition-enter,
 .new-transition-leave-to {
   opacity: 0;
@@ -116,7 +99,7 @@ gsap.registerPlugin(TextPlugin, ScrollTrigger);
 import DataMixin from "@/components/global/mixins/DataMixin";
 export default {
   mixins: [DataMixin],
-   mounted() {
+  mounted() {
     const tph = document.getElementsByClassName("tph");
     const sbh = document.getElementsByClassName("sbh");
     const desc = document.getElementsByClassName("desc");
@@ -225,6 +208,6 @@ export default {
       this.animateUpHead(e);
     },
   }
-    
+
 }
 </script>

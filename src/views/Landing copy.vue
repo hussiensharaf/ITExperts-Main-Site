@@ -26,25 +26,10 @@
       </v-col>
     </v-row>
 
-    <!-- <transition appear appear-active-class="fade-in">
-          <v-card class="mx-auto my-12" max-width="374">
-            <v-img
-              height="300"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            ></v-img>
-          </v-card>
-        </transition> -->
-
     <v-row no-gutters style="background-color: white" id="solution">
       <v-col cols="12">
-        <!-- <v-row justify="center">
-          <h1>
-            <span class="box"></span><span class="hi">ITEM provides </span
-            ><span class="text"></span><span class="cursor">|</span>
-          </h1>
-        </v-row> -->
         <v-row no-gutters justify="center">
-          <h1 class="sec-d-hd black--text mb-3">Our Solutions</h1>
+          <h1 class="section__header black--text mb-3">Our Solutions</h1>
         </v-row>
 
         <v-row no-gutters justify="center" class="sol-row">
@@ -64,9 +49,6 @@
        -webkit-text-fill-color:transparent;
                 " size="80">
               </v-icon>
-              <!-- <v-avatar align="center" size="120px" class="my-5">
-              <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
-            </v-avatar> -->
               <v-card-title class="justify-center">{{
                 sol.title
               }}</v-card-title>
@@ -81,20 +63,12 @@
           </v-col>
         </v-row>
       </v-col>
-      <!-- <transition appear appear-active-class="fade-in">
-          <v-card class="mx-auto my-12" max-width="374" height="300">
-            <v-img
-              height="300"
-              src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
-            ></v-img>
-          </v-card>
-       </transition> -->
     </v-row>
 
     <v-row no-gutters class="contact" id="contact">
       <v-col>
         <v-row no-gutters justify="center">
-          <h1 class="sec-d-hd white--text mb-3">Find Us</h1>
+          <!-- <h1 class="section__header white--text mb-3">Find Us</h1> -->
         </v-row>
         <v-row no-gutters class="map">
           <v-col class="px-16 py-16" cols="12" xl="6" lg="6" sm="12">
@@ -111,15 +85,15 @@
           </v-col>
           <v-col class="px-16 py-16" cols="12" xl="6" lg="6" sm="12">
             <v-row class="white--text pt-2 flex-nowrap align-start">
-              <v-icon class="pr-2" color="white">fas fa-map-marker-alt</v-icon>
+              <v-icon class="pr-2">fas fa-map-marker-alt</v-icon>
               <h4>16 Ahmed Abd El Gaffar st., 11351, Heliopolis, Cairo</h4>
             </v-row>
             <v-row class="white--text pt-7">
-              <v-icon class="pr-2" color="white"> mdi-phone</v-icon>
+              <v-icon class="pr-2"> mdi-phone</v-icon>
               <h4>+2022 6376959</h4>
             </v-row>
             <v-row class="white--text pt-7 flex-nowrap justify-start  align-start">
-              <v-icon class="pr-2" color="white"> mdi-email</v-icon>
+              <v-icon class="pr-2"> mdi-email</v-icon>
               <a href="mailto:dr.sharaf@from-masr.com">
                 <h4>dr.sharaf@from-masr.com</h4>
               </a>
@@ -391,7 +365,7 @@ export default {
   border-right: 0;
 }
 
-.sec-d-hd {
+.section__header {
   padding-top: 110px;
   letter-spacing: 3px;
   font-family: "Open Sans";

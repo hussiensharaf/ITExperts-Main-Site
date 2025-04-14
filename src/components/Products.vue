@@ -2,12 +2,12 @@
   <v-row class="mb-3" no-gutters style="background-color: white; min-height: 100vh" id="products">
     <v-col cols="12">
       <v-row no-gutters justify="center">
-        <h1 class="sec-d-hd black--text mb-16">Our Products</h1>
+        <h1 class="section__header mb-16">Our Products</h1>
       </v-row>
 
       <v-row no-gutters class="prod-row" v-for="(item, index) in items" :key="index">
         <v-col cols="12" xl="6" lg="6" sm="12">
-          <v-card class="prod-card  pa-5 mt-12" min-height="55vh" flat>
+          <v-card class="prod-card d-flex flex-column justify-center pa-6" min-height="55vh" flat>
             <v-card-title class="product-name">{{ item.prodName }}</v-card-title>
             <v-card-text class="product-desc">
               {{ item.desc }}
@@ -18,14 +18,14 @@
             <v-card-actions>
               <v-btn class="contact-btn px-4 mx-2" rounded @click="goToId('contact')">
                 get in touch
-                <v-icon class="ml-2" size="18" color="white">fas fa-long-arrow-alt-right</v-icon>
+                <v-icon class="ml-2 mt-1" size="18">fas fa-long-arrow-alt-right</v-icon>
               </v-btn>
             </v-card-actions>
           </v-card>
         </v-col>
         <v-col justify="center" align="center" cols="12" xl="6" lg="6" sm="12"
           :class="index % 2 == 0 && !$vuetify.breakpoint.smAndDown ? 'order-first' : ''">
-          <v-img min-height="70vh" class="prod-img " :src="require('../assets/imgs/' + item.imgName)">
+          <v-img min-height="70vh" class="prod-img" :src="require('../assets/imgs/' + item.imgName)">
           </v-img>
         </v-col>
       </v-row>
@@ -35,21 +35,10 @@
 
 <style scoped>
 .product-name {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 32px;
-  background: #008080;
-  background: -o-linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
-  background: -webkit-linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
-  background: -moz-linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
-  background: linear-gradient(to left, #008080 20%, #05C1FF 29%, #005757 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
 
-.product-desc {
-  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  font-size: 1em;
+  font-weight: 700;
+  color: rgb(24, 36, 49);
+  font-size: clamp(17px, 3vw, 20px);
 }
 </style>
 
@@ -71,11 +60,6 @@ export default {
                     DC also can integrate with other systems using APIs.`,
           prodName: "DataChannel (DC)",
         },
-        /*{
-          imgName: "charts.png",
-          desc: `A solution for processing unlimited text files on the fly.`,
-          prodName: "BDP",
-        },*/
         {
           imgName: "time-tracker.jpg",
           desc: `Easy Logging is a monitoring system for businesses that rely on PCs. It records open programs even tabs opened in browsers for each employee and the amount of time they spend.`,
@@ -103,29 +87,23 @@ export default {
     };
   },
   mounted() {
-    gsap.utils.toArray(".prod-card").forEach((item) => {
-      gsap.from(item, {
-        scrollTrigger: {
-          trigger: item,
-        },
-        opacity: 0,
-        x: -500,
-        duration: 1,
-        stagger: 0.1,
-      });
-    });
+    const animateElements = [
+      { selector: ".prod-card", x: -500 },
+      { selector: ".prod-img", x: 500 },
+    ];
 
-    gsap.utils.toArray(".prod-img").forEach((item) => {
-      gsap.from(item, {
-        scrollTrigger: {
-          trigger: item,
-        },
-        opacity: 0,
-        x: 500,
-        duration: 1,
-        stagger: 0.1,
+    animateElements.forEach(({ selector, x }) => {
+      gsap.utils.toArray(selector).forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: el,
+          },
+          opacity: 0,
+          x,
+          duration: 1.2,
+        });
       });
     });
-  },
+  }
 };
 </script>

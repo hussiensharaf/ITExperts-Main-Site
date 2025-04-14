@@ -3,7 +3,6 @@
 </template>
 
 <style scoped>
-
 .spinner {
   position: relative;
   margin: auto;
@@ -13,11 +12,12 @@
   height: 200px;
   border-radius: 100px;
   border: 4px solid rgba(255, 255, 255, 0.1);
-  -webkit-mask: linear-gradient(rgba(0, 0, 0, 0.1), #000000 90%);
+  /* -webkit-mask: linear-gradient(rgba(0, 0, 0, 0.1), #000000 90%); */
   transform-origin: 50% 60%;
   transform: perspective(200px) rotateX(66deg);
   animation: spinner-wiggle 1.2s infinite;
 }
+
 .spinner:before,
 .spinner:after {
   content: "";
@@ -47,13 +47,16 @@
     transform: rotate(360deg);
   }
 }
+
 @keyframes spinner-fade {
   20% {
     opacity: .1;
   }
+
   40% {
     opacity: 1;
   }
+
   60% {
     opacity: .1;
   }
