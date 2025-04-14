@@ -404,12 +404,6 @@ export default {
   color: white;
 }
 
-.container {
-  /*scroll-snap-type: y mandatory;
-  height: 100vh !important;*/
-  /*overflow-y:scroll*/
-}
-
 .rowd {
   height: 100vh !important;
   /*scroll-snap-align: start;*/
@@ -449,25 +443,8 @@ margin-left:120
   opacity: 0;
 
   color: white;
-  /*margin-left: 3vw;*/
-  /*width: 10%;*/
-  /*text-align: right;*/
-  /* transform: matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, -0.0025, 0, 0, 0, 1); */
-  /* animation: mymove 2s cubic-bezier(0.2, 0.3, 0.5, 1) 1s; */
-  /*
-  gradiant text background clip
-
-  background-image: linear-gradient(to right, red, green);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-
-  */
 }
 
-/* .v-window-x-transition-enter-active  .img-header{
-  visibility: visible;
-} */
 @keyframes mymove {
   from {
     margin-top: 25vh;
