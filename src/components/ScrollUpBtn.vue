@@ -48,7 +48,7 @@ export default {
       let goUpBtn = document.getElementsByClassName("go-up-btn")[0];
 
       if (
-        (val > 200 && !this.$vuetify.breakpoint.smAndDown) ||
+        (val > 200) ||
         val == document.body.scrollHeight - document.body.offsetHeight
       ) {
         this.isShown == false ? goUpBtn.classList.add("go-up-btn-show") : null;

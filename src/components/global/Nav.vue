@@ -28,12 +28,17 @@
 
     <!--Navigation bar start -->
 
-    <v-navigation-drawer v-model="drawer" fixed temporary dark right
+    <v-navigation-drawer width="100%" v-if="$vuetify.breakpoint.smAndDown" v-model="drawer" fixed temporary
+      class="change_color"
       src="https://i.picsum.photos/id/381/1920/1080.jpg?hmac=Y4UtABAPV9MnyUdX2rsci7mdAeIGyClx_taShHQmN0A">
-
-      <v-list dense class="mx-auto" width="80%">
+      <v-row no-gutters justify="end">
+        <v-icon class="pa-4 drawer-close-icon" @click="drawer = false" color="white">
+          fas fa-times
+        </v-icon>
+      </v-row>
+      <v-list dense class="mx-auto" width="100%">
         <v-list-item-group>
-          <v-list-item @click="drawer = false" v-for="(item, index) in navItems" :key="index * 5" class=" white--text">
+          <v-list-item @click="drawer = false" v-for="(item, index) in navItems" :key="index * 5" class="white--text">
             <v-list-item-title @click="tab = index">
               <v-icon small class="mr-2" v-text="item.icon"></v-icon>
               <a :href="item.ref" class="nav-item">
@@ -99,6 +104,7 @@ a {
 }
 </style>
 <script>
+import { VIcon } from "vuetify/lib";
 import DataMixin from "@/components/global/mixins/DataMixin.js"
 export default {
   name: "Nav",
