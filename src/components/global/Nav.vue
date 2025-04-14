@@ -1,38 +1,27 @@
 <template>
   <v-card id="nav">
-    <!-- :extended="drawer" -->
     <v-app-bar :flat="scrollPosition < 500 ? true : false" :absolute="this.$vuetify.breakpoint.smAndDown"
       :fixed="!this.$vuetify.breakpoint.smAndDown" dark
       :class="[scrollPosition >= 100 ? 'change_color' : 'transparent']">
-      <!-- <v-app-bar-title  class="black--text font-weight-black title">ITEM</v-app-bar-title> -->
-      <!-- <a href="#nav" class="ctitle white--text font-weight-black pl-7 pt-2">ITEM</a> -->
-      <div class="d-flex" style="width: 120px; height: 120px; filter: grayscale(1) brightness(2.2);">
-        <v-img href="#nav" src="../../assets/logo.png" class="ctitle white--text font-weight-black pl-7 pt-2" />
-      </div>
+
+      <v-app-bar-title>
+        <div class="d-flex" style="width: 120px; height: 120px; filter: grayscale(1) brightness(2.2);">
+          <v-img @click="goToId('nav')" src="../../assets/logo.png"
+            class="ctitle logo white--text font-weight-black pl-7 pt-2" />
+        </div>
+      </v-app-bar-title>
 
       <v-list class="horezental d-flex transparent" v-if="!$vuetify.breakpoint.smAndDown">
-        <v-list-item class="ml-5 mt-2" v-for="(item, index) in this.navItems" :key="index" @click="goTo(index)">
+        <v-list-item class="v-list-item" v-for="(item, index) in this.navItems" :key="index" @click="goTo(index)">
           <v-list-item-title>
-            <a :href="item.ref" class="nav-item">{{ item.name }}</a>
+            <a class="nav-item d-flex" :href="item.ref">
+              <v-icon small class="mr-3" v-text="item.icon"></v-icon>
+              {{ item.name }}
+            </a>
           </v-list-item-title>
         </v-list-item>
       </v-list>
 
-      <!-- 
-        <v-list dense class="vertical transparent mx-auto " v-if="$vuetify.breakpoint.smAndDown && drawer">
-        <v-list-item
-          class=""
-          v-for="(item, index) in this.navItems"
-          :key="index"
-        >
-          <v-list-item-title
-            ><a href="#solution" class="nav-item">
-              <h5>{{item.name}}</h5>
-            </a></v-list-item-title
-          >
-        </v-list-item>
-      </v-list> -->
-      <!-- v-if="$vuetify.breakpoint.smAndDown" -->
       <template>
         <v-spacer></v-spacer>
         <v-app-bar-nav-icon v-if="$vuetify.breakpoint.smAndDown" @click="drawer = true"
@@ -63,6 +52,10 @@
 </template>
 
 <style scoped>
+.logo {
+  cursor: pointer;
+}
+
 .vertical {
   position: absolute;
   margin-top: 100px;
@@ -79,14 +72,21 @@ a {
   margin-left: 100px !important;
 }
 
-.nav-item {
+.v-list-item {
   transition: all 0.4s ease;
-  color: white !important;
 }
 
-.nav-item:hover {
-  color: rgb(255, 158, 78) !important;
+.v-list-item a.nav-item,
+.v-list-item .v-icon {
+  transition: color 0.4s ease;
+  color: rgb(245, 245, 245) !important;
 }
+
+.v-list-item:hover a.nav-item,
+.v-list-item:hover .v-icon {
+  color: rgb(255, 191, 172) !important;
+}
+
 
 .ctitle {
   font-size: clamp(16px, 3vw, 32px);
