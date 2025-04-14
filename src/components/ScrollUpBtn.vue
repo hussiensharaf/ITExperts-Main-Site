@@ -1,29 +1,23 @@
 <template>
-  <v-btn
-    :small="this.$vuetify.breakpoint.smAndDown"
-    elevation="2"
-    fab
-    class="blue go-up-btn transition-swing"
-    @click="goToId('nav')"
-  >
+  <v-btn :small="this.$vuetify.breakpoint.smAndDown" fab class="blue go-up-btn transition-swing" @click="goToId('nav')">
     <v-icon>fas fa-angle-up</v-icon>
   </v-btn>
 </template>
 
 <style scoped>
 .go-up-btn-show {
-  transform:scale(1)!important;
-  
+  transform: scale(1) !important;
+
 }
 
 .go-up-btn {
 
   transform: scale(0);
-  
+
   z-index: 6;
   transform-origin: center center;
-  
-  transition: all .3s cubic-bezier(.25,.8,.5,1)!important;
+
+  transition: all .3s cubic-bezier(.25, .8, .5, 1) !important;
   position: fixed;
   bottom: 45px;
   right: 30px;

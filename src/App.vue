@@ -15,6 +15,7 @@
   letter-spacing: 3px;
   font-family: "Open Sans";
   font-size: clamp(20px, 3vw, 40px);
+  
 }
 * {
   scroll-behavior: smooth;
