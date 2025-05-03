@@ -1,16 +1,18 @@
 <template>
-  <v-carousel next-icon="fas fa-arrow-right" prev-icon="fas fa-arrow-left" class="mt-n16 carousel-style"
-    v-model="currentCarouselPage" progress show-arrows-on-hover interval="6000" height="100vh" cycle>
-    <v-carousel-item v-for="(item, i) in items" cover :key="i" :src="getImageUrl(item.src)" class="pa-0 ma-0">
-      <div class="tph montserrat-alternates-extrabold" :style="textStyles.tph">ITEM provides</div>
-      <div class="sbh montserrat-alternates-extrabold" :style="textStyles.sbh">
-        {{ solutionsData[i]?.title }}
-      </div>
-      <div class="desc" :style="textStyles.desc">
-        {{ solutionsData[i]?.subTitle }}
-      </div>
-    </v-carousel-item>
-  </v-carousel>
+  <div class="parallax">
+    <v-carousel next-icon="fas fa-arrow-right" prev-icon="fas fa-arrow-left" class="mt-n16 carousel-style"
+      v-model="currentCarouselPage" progress show-arrows-on-hover interval="6000" height="100vh" cycle>
+      <v-carousel-item v-for="(item, i) in items" cover :key="i" :src="getImageUrl(item.src)" class="pa-0 ma-0">
+        <div class="title-phrase montserrat-alternates-extrabold" :style="textStyles.titlePhrase">ITEM provides</div>
+        <div class="subtitle-phrase montserrat-alternates-extrabold" :style="textStyles.subtitlePhrase">
+          {{ solutionsData[i]?.title }}
+        </div>
+        <div class="description" :style="textStyles.description">
+          {{ solutionsData[i]?.subTitle }}
+        </div>
+      </v-carousel-item>
+    </v-carousel>
+  </div>
 </template>
 
 <script setup>
@@ -33,26 +35,25 @@ const items = ref([
 const currentCarouselPage = ref(0)
 const { smAndDown } = useDisplay()
 
-// Sample data - replace with your actual data
 const solutionsData = ref([
-  { title: 'Solution 1', subTitle: 'Description for solution 1' },
-  { title: 'Solution 2', subTitle: 'Description for solution 2' },
-  { title: 'Solution 3', subTitle: 'Description for solution 3' }
+  { title: 'Solutions', subTitle: 'Websites, Cloud-Based Solutions, Data analysis, Data integrations and Data synchronization systems.' },
+  { title: 'System Integration', subTitle: 'With us you can have your new system or integrate with existing systems or cloud services.' },
+  { title: 'Hosting', subTitle: 'We provide domain names, websites hosting, and dataBases hosting, maintinance and monitoring.' }
 ])
 
 // Computed styles based on breakpoint
 const textStyles = computed(() => ({
-  tph: {
+  titlePhrase: {
     marginLeft: smAndDown.value ? '8vw' : '11vw',
     marginTop: smAndDown.value ? '100px' : '200px',
     fontSize: 'clamp(5px, 1.5rem, 28px)'
   },
-  sbh: {
+  subtitlePhrase: {
     marginLeft: '11vw',
     marginTop: '0.4vw',
     fontSize: 'clamp(5px, 2rem, 35px)'
   },
-  desc: {
+  description: {
     marginLeft: '11vw',
     marginTop: '0.4vw',
     fontSize: 'clamp(5px, 1rem, 28px)',
@@ -68,20 +69,20 @@ const getImageUrl = (name) => {
 // Animation functions
 const animateTextOut = () => {
   return gsap.timeline()
-    .to('.desc', {
+    .to('.description', {
       duration: 0.2,
       autoAlpha: 0,
       opacity: 0,
       ease: Power4.easeOut
     })
-    .to('.tph', {
+    .to('.title-phrase', {
       duration: 0.2,
       marginLeft: '8vw',
       autoAlpha: 0,
       opacity: 0,
       ease: Power4.easeOut
     }, 0)
-    .to('.sbh', {
+    .to('.subtitle-phrase', {
       duration: 0.2,
       autoAlpha: 0,
       opacity: 0,
@@ -92,20 +93,20 @@ const animateTextOut = () => {
 
 const animateTextIn = () => {
   return gsap.timeline()
-    .to('.tph', {
+    .to('.title-phrase', {
       duration: 1,
-      marginLeft: textStyles.value.tph.marginLeft,
+      marginLeft: textStyles.value.titlePhrase.marginLeft,
       autoAlpha: 1,
       opacity: 1,
       ease: Power4.easeOut
     })
-    .to('.sbh', {
+    .to('.subtitle-phrase', {
       duration: 1,
       opacity: 1,
       autoAlpha: 1,
       ease: Power4.easeOut
     })
-    .to('.desc', {
+    .to('.description', {
       duration: 1.5,
       opacity: 1,
       autoAlpha: 1,
@@ -126,6 +127,10 @@ onMounted(() => {
 </script>
 
 <style scoped>
+.parallax {
+  background-attachment: fixed;
+}
+
 .carousel-style {
   box-shadow:
     rgba(52, 82, 152, 0.7) 0px 5px,
@@ -136,9 +141,9 @@ onMounted(() => {
   ;
 }
 
-.tph,
-.sbh,
-.desc {
+.title-phrase,
+.subtitle-phrase,
+.description {
   align-self: center !important;
   visibility: hidden;
   opacity: 0;
