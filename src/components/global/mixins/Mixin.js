@@ -1,8 +1,11 @@
-import Vue from 'vue'
-Vue.mixin({
+// src/mixins/scrollMixin.js
+export default {
     methods: {
         goToId(id) {
-            document.getElementById(id).scrollIntoView();
-        },
+            const element = document.getElementById(id);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
     }
-})
+}

@@ -9,8 +9,8 @@
   </v-app>
 </template>
 <script>
-import Nav from "@/components/global/Nav";
-import Splash from "@/components/global/Splash";
+import Nav from "./components/global/Nav.vue";
+import Splash from "./components/global/Splash.vue";
 export default {
   name: "App",
 

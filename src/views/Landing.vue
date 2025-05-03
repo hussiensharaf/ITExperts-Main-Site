@@ -17,7 +17,8 @@ import ContactSec from "@/components/ContactSec.vue";
 import ScrollUpBtn from "@/components/ScrollUpBtn.vue";
 import Carousel from "@/components/Carousel.vue";
 
-import DataMixin from "@/components/global/mixins/DataMixin";
+
+import { DataMixin } from "../composables/DataMixin";
 export default {
   mixins: [DataMixin],
   components: {

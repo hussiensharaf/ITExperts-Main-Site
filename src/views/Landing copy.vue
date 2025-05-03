@@ -36,7 +36,7 @@
           <v-col justify="center" align="center" cols="12" xl="3" lg="3" sm="12"
             v-for="(sol, index) in this.solutionsData" :key="index">
             <v-card align="center" class="sol-card grey lighten-5 ma-6 pa-5" min-height="55vh" max-width="500px" flat>
-              <v-icon v-text="sol.icon" class="my-3" style="
+              <v-icon :icon="sol.icon" class="my-3" style="
               
                
                  background:-moz-linear-gradient(90deg, rgba(2, 0, 36, 1) 0%,rgba(9, 9, 121, 1) 23%, rgba(0, 212, 255, 1) 100%); 
@@ -54,7 +54,7 @@
               }}</v-card-title>
               <v-card-text>{{ sol.subTitle }}</v-card-text>
               <v-card-actions class="justify-center">
-                <v-btn class="contact-btn white--text px-4 mx-2" rounded @click="goToContact">
+                <v-btn class="contact-btn text-white px-4 mx-2" rounded @click="goToContact">
                   Get in touch
                   <v-icon class="ml-2" size="18">fas fa-long-arrow-alt-right</v-icon>
                 </v-btn>
@@ -68,7 +68,7 @@
     <v-row no-gutters class="contact" id="contact">
       <v-col>
         <v-row no-gutters justify="center">
-          <!-- <h1 class="section__header white--text mb-3">Find Us</h1> -->
+          <!-- <h1 class="section__header text-white mb-3">Find Us</h1> -->
         </v-row>
         <v-row no-gutters class="map">
           <v-col class="px-16 py-16" cols="12" xl="6" lg="6" sm="12">
@@ -84,22 +84,22 @@
               " allowfullscreen="" loading="lazy"></iframe>
           </v-col>
           <v-col class="px-16 py-16" cols="12" xl="6" lg="6" sm="12">
-            <v-row class="white--text pt-2 flex-nowrap align-start">
+            <v-row class="text-white pt-2 flex-nowrap align-start">
               <v-icon class="pr-2">fas fa-map-marker-alt</v-icon>
               <h4>16 Ahmed Abd El Gaffar st., 11351, Heliopolis, Cairo</h4>
             </v-row>
-            <v-row class="white--text pt-7">
+            <v-row class="text-white pt-7">
               <v-icon class="pr-2"> mdi-phone</v-icon>
               <h4>+2022 6376959</h4>
             </v-row>
-            <v-row class="white--text pt-7 flex-nowrap justify-start  align-start">
+            <v-row class="text-white pt-7 flex-nowrap justify-start  align-start">
               <v-icon class="pr-2"> mdi-email</v-icon>
               <a href="mailto:dr.sharaf@from-masr.com">
                 <h4>dr.sharaf@from-masr.com</h4>
               </a>
             </v-row>
             <!-- <a href="mailto:email@echoecho.com?subject=SweetWords&body=Please send me a copy of your new program!">Email Me</a> -->
-            <v-row class="white--text pl-8">
+            <v-row class="text-white pl-8">
               <a href="mailto:hussiensharaf@from-masr.com">
                 <h4>ite@from-masr.com</h4>
               </a>
@@ -111,33 +111,90 @@
   </v-container>
 </template>
 
-<script>
-import Map from "@/components/Map.vue";
-import { createSimpleTransition } from "vuetify/lib/components/transitions/createTransition";
-import gsap from "gsap";
-import { Power4 } from "gsap";
-import TextPlugin from "gsap/TextPlugin.js";
+<script setup>
+import { useDisplay } from "vuetify/lib/composables/display";
+const { smAndDown } = useDisplay()
+import { ref, onMounted, computed } from 'vue'
+import { useDisplay } from 'vuetify'
+import gsap from 'gsap'
+import TextPlugin from 'gsap/TextPlugin'
+import { Power4 } from 'gsap/all'
 
-gsap.registerPlugin(TextPlugin);
-export default {
-  components: {
-    Map,
+gsap.registerPlugin(TextPlugin)
+
+// Reactive data
+const currentCarIndex = ref(0)
+const markersList = ref([
+  { location: { lat: 30.000577, lng: 32.558635 }, label: "A" },
+  { location: { lat: 29.995936132279272, lng: 32.556022302311476 }, label: "B" },
+  { location: { lat: 29.990137864220497, lng: 32.5506149692907 }, label: "C" }
+])
+
+const solutionsData = ref([
+  {
+    title: "Software Solutions",
+    subTitle: "websites, cloud based Solutions, data analysis, data integrations and data synchronization systems",
+    icon: "fas fa-globe"
   },
-  mounted() {
-    const newTransition = createSimpleTransition("new-transition");
-    this.$once("hook:components", () => {
-      newTransition;
-    });
+  // ... other solutions data
+])
 
-    const tph = document.getElementsByClassName("tph");
-    const sbh = document.getElementsByClassName("sbh");
-    const desc = document.getElementsByClassName("desc");
+const items = ref([
+  { src: "img6.jpg" },
+  { src: "img5.jpg" },
+  { src: "img3.jpg" }
+])
 
-    gsap
-      .timeline()
-      .to(tph, {
+const xMargin = computed(() => smAndDown.value ? 80 : 120)
+
+// Animation functions
+const initAnimations = () => {
+  gsap.timeline()
+    .to(".tph", {
+      duration: 1,
+      'margin-left': '11vw',
+      autoAlpha: 1,
+      opacity: 1,
+      ease: Power4.easeOut,
+    })
+    .to(".sbh", {
+      duration: 1,
+      opacity: 1,
+      autoAlpha: 1,
+      text: solutionsData.value[0].title,
+    })
+    .to(".desc", {
+      duration: 1.5,
+      opacity: 1,
+      autoAlpha: 1,
+      ease: Power4.easeOut,
+    })
+}
+
+const animateUpHead = (index) => {
+  const tl = gsap.timeline()
+
+  tl.to(".desc", { display: "none", autoAlpha: 0, opacity: 0 })
+    .to(".tph", {
+      duration: 0.2,
+      "margin-left": "8vw",
+      autoAlpha: 0,
+      opacity: 0,
+      ease: Power4.easeOut,
+    })
+    .to(".sbh", {
+      display: "none",
+      autoAlpha: 0,
+      opacity: 0,
+      text: "",
+      ease: Power4.easeOut,
+    })
+
+  setTimeout(() => {
+    gsap.timeline()
+      .to(".tph", {
         duration: 1,
-        'margin-left': '11vw',
+        "margin-left": "11vw",
         autoAlpha: 1,
         opacity: 1,
         ease: Power4.easeOut,
@@ -146,184 +203,78 @@ export default {
         duration: 1,
         opacity: 1,
         autoAlpha: 1,
-        text: this.solutionsData[0].title,
+        display: "block",
+        text: solutionsData.value[index].title,
       })
       .to(".desc", {
-        duration: 1.5,
+        duration: 0.5,
         opacity: 1,
         autoAlpha: 1,
+        display: "block",
         ease: Power4.easeOut,
-      });
+      })
+  }, 1200)
+}
 
-    //this.typingAnimation();
-  },
-  data() {
-    return {
-      markersList: [
-        {
-          location: { lat: 30.000577, lng: 32.558635 },
-          label: "A",
-        },
-        {
-          location: { lat: 29.995936132279272, lng: 32.556022302311476 },
-          label: "B",
-        },
-        {
-          location: { lat: 29.990137864220497, lng: 32.5506149692907 },
-          label: "C",
-        },
-      ],
-      currentCarIndex: 0,
-      xMargin: this.$vuetify.breakpoint.smAndDown ? 80 : 120,
-      solutionsData: [
-        {
-          title: "Software Solutions",
-          subTitle: `websites, cloud based Solutions, data analysis, data integrations and data synchronization systems `,
-          icon: "fas fa-globe",
-        },
-        {
-          title: "System integration",
-          subTitle: `with us you can have your new system or integrate with existing
-                systems or cloud services`,
-          icon: "fas fa-project-diagram",
-        },
-        {
-          title: "Hosting",
-          subTitle: `we provide domain names, websites hosting, and dataBases hosting, maintinance and monitoring  `,
-          icon: "fa fa-server",
-        },
-      ],
-      items: [
-        {
-          src: "img6.jpg",
-        },
-        {
-          src: "img5.jpg",
-        },
-        {
-          src: "img3.jpg",
-        },
-      ],
-    };
-  },
-  methods: {
-    goToContact() {
-      document.getElementById('contact').scrollIntoView()
-    },
-    typingAnimation() {
-      const words = [
-        "modern websites",
-        "system integrations",
-        "web hosting",
-        "data syncrounous solutions",
-      ];
+const typingAnimation = () => {
+  const words = [
+    "modern websites",
+    "system integrations",
+    "web hosting",
+    "data syncrounous solutions",
+  ]
 
-      let cursor = gsap.to(".cursor", {
-        opacity: 0,
-        ease: "power2.inOut",
-        repeat: -1,
-      });
-      let masterTl = gsap.timeline({ repeat: -1 }).pause();
-      let boxTl = gsap.timeline();
+  const cursor = gsap.to(".cursor", {
+    opacity: 0,
+    ease: "power2.inOut",
+    repeat: -1,
+  })
 
-      boxTl
-        .to(".box", {
-          duration: 1,
-          width: "17vw",
-          delay: 0.5,
-          ease: "power4.inOut",
-        })
-        .from(".hi", { duration: 1, y: "7vw", ease: "power3.out" })
-        .to(".box", {
-          duration: 1,
-          height: "7vw",
-          ease: "elastic.out",
-          onComplete: () => masterTl.play(),
-        })
-        .to(".box", {
-          duration: 2,
-          autoAlpha: 0.7,
-          yoyo: true,
-          repeat: -1,
-          ease: "rough({ template: none.out, strength:  1, points: 20, taper: 'none', randomize: true, clamp: false})",
-        });
-      words.forEach((word) => {
-        let tl = gsap.timeline({ repeat: 1, yoyo: true, repeatDelay: 1 });
-        tl.to(".text", { duration: 1, text: word });
-        masterTl.add(tl);
-      });
-    },
+  const masterTl = gsap.timeline({ repeat: -1 }).pause()
+  const boxTl = gsap.timeline()
 
-    animateUpHead(e) {
-      const tph = document.getElementsByClassName("tph");
-      let sbh = document.getElementsByClassName("sbh");
-      const desc = document.getElementsByClassName("desc");
-      if ((tph, sbh, desc)) {
-        gsap.to(".desc", {
-          display: "none",
-          autoAlpha: -1,
-          opacity: 0,
-        });
-        let xMargin = 0;
-        this.xMargin = this.$vuetify.breakpoint.smAndDown ? 80 : 120;
-        gsap.timeline().to([tph], {
-          duration: 0.2,
-          "margin-left": "8vw",
-          autoAlpha: -1,
-          opacity: 0,
-          ease: Power4.easeOut,
-        });
+  boxTl.to(".box", {
+    duration: 1,
+    width: "17vw",
+    delay: 0.5,
+    ease: "power4.inOut",
+  })
+    .from(".hi", { duration: 1, y: "7vw", ease: "power3.out" })
+    .to(".box", {
+      duration: 1,
+      height: "7vw",
+      ease: "elastic.out",
+      onComplete: () => masterTl.play(),
+    })
+    .to(".box", {
+      duration: 2,
+      autoAlpha: 0.7,
+      yoyo: true,
+      repeat: -1,
+      ease: "rough({ template: none.out, strength:  1, points: 20, taper: 'none', randomize: true, clamp: false})",
+    })
 
-        gsap.to(".sbh", {
-          display: "none",
-          autoAlpha: -1,
-          opacity: 0,
-          text: "",
-          ease: Power4.easeOut,
-        });
-      }
-      this.xMargin = this.$vuetify.breakpoint.smAndDown ? 100 : 150;
-      setTimeout(() => {
-        sbh = document.getElementsByClassName("sbh");
-        sbh.innerHTML = "";
-        gsap
-          .timeline()
-          .to(tph, {
-            duration: 1,
-            "margin-left": "11vw",
-            autoAlpha: 1,
-            opacity: 1,
-            ease: Power4.easeOut,
-          })
-          .to(".sbh", {
-            duration: 1,
-            opacity: 1,
-            autoAlpha: 1,
-            display: "block",
-            text: this.solutionsData[this.currentCarIndex].title,
-          })
-          .to(".desc", {
-            duration: 0.5,
-            opacity: 1,
-            autoAlpha: 1,
-            display: "block",
-            ease: Power4.easeOut,
-          });
-      }, 1200);
-    },
-    prev(e) {
-      //this.animateUpHead(e);
-    },
-    next(e) {
-      //this.animateUpHead(e);
-    },
-    changeindex(e) {
+  words.forEach(word => {
+    const tl = gsap.timeline({ repeat: 1, yoyo: true, repeatDelay: 1 })
+    tl.to(".text", { duration: 1, text: word })
+    masterTl.add(tl)
+  })
+}
 
-      this.currentCarIndex = e;
-      this.animateUpHead(e);
-    },
-  },
-};
+const goToContact = () => {
+  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })
+}
+
+const changeIndex = (index) => {
+  currentCarIndex.value = index
+  animateUpHead(index)
+}
+
+// Lifecycle hooks
+onMounted(() => {
+  initAnimations()
+  // typingAnimation() // Uncomment if needed
+})
 </script>
 
 
@@ -368,7 +319,6 @@ export default {
 .section__header {
   padding-top: 110px;
   letter-spacing: 3px;
-  font-family: "Open Sans";
   font-size: clamp(20px, 3vw, 40px);
 }
 

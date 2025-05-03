@@ -1,13 +1,10 @@
 <template>
-  <v-btn :small="this.$vuetify.breakpoint.smAndDown" fab class="go-up-btn transition-swing" @click="goToId('nav')">
-    <v-icon>fas fa-angle-up</v-icon>
-  </v-btn>
+  <v-btn :small="smAndDown" icon="fas fa-angle-up" rounded="pill" flat tile class="go-up-btn" @click="goToId('nav')" />
 </template>
 
 <style scoped>
 .go-up-btn-show {
   transform: scale(1) rotate(360deg) !important;
-
 }
 
 .go-up-btn {
@@ -25,37 +22,38 @@
 }
 </style>
 
-<script>
-import DataMixin from "@/components/global/mixins/DataMixin.js";
-export default {
-  name: "",
-  mixins: [DataMixin],
-  data() {
-    return {
-      isShown: false,
-    };
-  },
-  watch: {
-    scrollPosition: function (val) {
-      // var height = Math.max(
-      //   body.scrollHeight,
-      //   body.offsetHeight,
-      //   html.clientHeight,
-      //   html.scrollHeight,
-      //   html.offsetHeight
-      // );
+<script setup>
+import { DataMixin } from "../composables/DataMixin";
+import { useDisplay } from "vuetify/lib/composables/display";
+const { smAndDown } = useDisplay()
+import { ref, watch, onMounted } from 'vue'
+import Mixin from "./global/mixins/Mixin";
 
-      let goUpBtn = document.getElementsByClassName("go-up-btn")[0];
+const { goToId } = Mixin.methods
 
-      if (
-        (val > 200) ||
-        val == document.body.scrollHeight - document.body.offsetHeight
-      ) {
-        this.isShown == false ? goUpBtn.classList.add("go-up-btn-show") : null;
-      } else {
-        goUpBtn.classList.remove("go-up-btn-show");
-      }
-    },
-  },
-};
+// Convert mixin to composable usage
+const { scrollPosition } = DataMixin()
+
+const isShown = ref(false)
+
+// Reference to the button element
+const goUpBtn = ref(null)
+
+onMounted(() => {
+  goUpBtn.value = document.getElementsByClassName("go-up-btn")[0]
+})
+
+watch(scrollPosition, (val) => {
+  if (!goUpBtn.value) return
+
+  const atBottom = val === document.body.scrollHeight - document.body.offsetHeight
+
+  if (val > 200 || atBottom) {
+    if (!isShown.value) {
+      goUpBtn.value.classList.add("go-up-btn-show")
+    }
+  } else {
+    goUpBtn.value.classList.remove("go-up-btn-show")
+  }
+})
 </script>
