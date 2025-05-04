@@ -1,8 +1,19 @@
 <template>
-  <div class="spinner"></div>
+  <div class="splash-wrapper">
+    <div class="spinner"></div>
+  </div>
 </template>
 
-<style scoped>
+<style>
+.splash-wrapper {
+  background-color: rgb(var(--v-theme-on-background));
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .spinner {
   position: relative;
   margin: auto;
@@ -12,7 +23,6 @@
   height: 200px;
   border-radius: 100px;
   border: 4px solid rgba(255, 255, 255, 0.1);
-  /* -webkit-mask: linear-gradient(rgba(0, 0, 0, 0.1), #000000 90%); */
   transform-origin: 50% 60%;
   transform: perspective(200px) rotateX(66deg);
   animation: spinner-wiggle 1.2s infinite;

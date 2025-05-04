@@ -8,13 +8,41 @@
 }
 
 a {
-    color: rgb(111, 181, 238) !important;
+
+    color: rgb(var(--v-theme-primary));
     text-decoration: underline;
 }
 
 html,
 body {
     height: 100%;
+}
+
+
+
+
+.redirect-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-weight: lighter;
+    text-decoration: none;
+
+    &::after {
+        transition: all 0.5s ease-out;
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 0.5px;
+        background-color: rgba(var(--v-theme-on-surface));
+    }
+
+
+    &:hover::after {
+        width: 100%;
+    }
 }
 
 .montserrat-alternates-extrabold {
@@ -28,30 +56,12 @@ body {
     position: relative;
     width: 100%;
     text-align: center;
+    padding: 0.7rem 0;
+    background: linear-gradient(20deg, rgba(var(--v-theme-dark-background-lighten-1)) 40%, rgba(var(--v-theme-dark-background))60%);
     font-weight: 900;
-    color: rgb(24, 36, 49);
-    padding-top: 110px;
+    color: rgba(var(--v-theme-surface));
     letter-spacing: 0.25px;
     font-size: clamp(28px, 3vw, 40px);
-}
-
-.section__header::after {
-    content: '';
-    position: absolute;
-    bottom: -20px;
-    left: 0;
-    height: 0;
-    width: 100%;
-    background-color: rgba(42, 65, 94, 0.745);
-    transition: height 0.3s ease, opacity 0.3s ease;
-    opacity: 0;
-}
-
-
-
-.section__header:hover::after {
-    height: 12px;
-    opacity: 1;
 }
 
 

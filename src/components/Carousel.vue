@@ -1,64 +1,165 @@
 <template>
-  <v-row no-gutters style="height: 100vh">
-    <v-col cols="12">
-      <v-carousel progress show-arrows-on-hover interval="6000" height="100vh" cycle @change="updateIndex">
-        <v-carousel-item ripple v-for="(item, i) in items" :key="i" :src="require('../assets/imgs/' + item.src)"
-          class="pa-0 ma-0">
-          <div class="tph montserrat-alternates-extrabold" ref="tph">ITEM provides</div>
-          <div class="sbh montserrat-alternates-extrabold" ref="sbh"></div>
-          <div class="desc" ref="desc">
-            {{ solutionsData[i].subTitle }}
-          </div>
-        </v-carousel-item>
-      </v-carousel>
-    </v-col>
-  </v-row>
+  <div class="parallax">
+    <v-carousel class="mt-n16 carousel-style" v-model="currentCarouselPage" progress show-arrows-on-hover
+      interval="6000" height="100vh" cycle>
+      <template #next="{ props }">
+        <v-btn @click="props.onClick()" variant="plain" size="100" rounded="pill" color="surface" density="comfortable">
+          <v-icon size="70" icon="ri-arrow-right-wide-line" />
+        </v-btn>
+      </template>
+      <template #prev="{ props }">
+        <v-btn @click="props.onClick()" variant="plain" size="100" rounded="pill" color="surface" density="comfortable">
+          <v-icon size="70" icon="ri-arrow-left-wide-line" />
+        </v-btn>
+      </template>
+      <v-carousel-item v-for="(item, i) in items" cover :key="i" :src="getImageUrl(item.src)">
+        <div class="titlePhrase montserrat-alternates-extrabold" :style="textStyles.titlePhrase">ITEM provides</div>
+        <div class="subtitlePhrase montserrat-alternates-extrabold" :style="textStyles.subtitlePhrase">
+          {{ solutionsData[i]?.title }}
+        </div>
+        <div class="description" :style="textStyles.description">
+          {{ solutionsData[i]?.subTitle }}
+        </div>
+      </v-carousel-item>
+    </v-carousel>
+  </div>
 </template>
 
+<script setup>
+import { ref, computed, onMounted, watch } from 'vue'
+import { useDisplay } from 'vuetify'
+import gsap from 'gsap'
+import TextPlugin from 'gsap/TextPlugin'
+import ScrollTrigger from 'gsap/ScrollTrigger'
+import { Power4 } from 'gsap'
+
+gsap.registerPlugin(TextPlugin, ScrollTrigger)
+
+// Props or data
+const items = ref([
+  { src: 'BluePlanets.png' },
+  { src: 'img5.jpg' },
+  { src: 'DarkBlueTechnology.jpg' }
+])
+
+const currentCarouselPage = ref(0)
+const { smAndDown } = useDisplay()
+
+const solutionsData = ref([
+  { title: 'Solutions', subTitle: 'Websites, Cloud-Based Solutions, Data analysis, Data integrations and Data synchronization systems.' },
+  { title: 'System Integration', subTitle: 'With us you can have your new system or integrate with existing systems or cloud services.' },
+  { title: 'Hosting', subTitle: 'We provide domain names, websites hosting, and dataBases hosting, maintinance and monitoring.' }
+])
+
+// Computed styles based on breakpoint
+const textStyles = computed(() => ({
+  titlePhrase: {
+    marginLeft: smAndDown.value ? '8vw' : '11vw',
+    marginTop: smAndDown.value ? '100px' : '200px',
+    fontSize: 'clamp(5px, 1.5rem, 28px)'
+  },
+  subtitlePhrase: {
+    marginLeft: '11vw',
+    marginTop: '0.4vw',
+    fontSize: 'clamp(5px, 2rem, 35px)'
+  },
+  description: {
+    marginLeft: '11vw',
+    marginTop: '0.4vw',
+    fontSize: 'clamp(5px, 1rem, 28px)',
+    maxWidth: '20rem'
+  }
+}))
+
+// Image handling
+const getImageUrl = (name) => {
+  return new URL(`../assets/imgs/${name}`, import.meta.url).href
+}
+
+// Animation functions
+const animateTextOut = () => {
+  return gsap.timeline()
+    .to('.description', {
+      duration: 0.2,
+      autoAlpha: 0,
+      opacity: 0,
+      ease: Power4.easeOut
+    })
+    .to('.titlePhrase', {
+      duration: 0.2,
+      marginLeft: '8vw',
+      autoAlpha: 0,
+      opacity: 0,
+      ease: Power4.easeOut
+    }, 0)
+    .to('.subtitlePhrase', {
+      duration: 0.2,
+      autoAlpha: 0,
+      opacity: 0,
+      text: '',
+      ease: Power4.easeOut
+    }, 0)
+}
+
+const animateTextIn = () => {
+  return gsap.timeline()
+    .to('.titlePhrase', {
+      duration: 1,
+      marginLeft: textStyles.value.titlePhrase.marginLeft,
+      autoAlpha: 1,
+      opacity: 1,
+      ease: Power4.easeOut
+    })
+    .to('.subtitlePhrase', {
+      duration: 1,
+      opacity: 1,
+      autoAlpha: 1,
+      ease: Power4.easeOut
+    })
+    .to('.description', {
+      duration: 1.5,
+      opacity: 1,
+      autoAlpha: 1,
+      ease: Power4.easeOut
+    })
+}
+
+// Handle carousel changes
+watch(currentCarouselPage, async (_, __) => {
+  await animateTextOut()
+  animateTextIn()
+})
+
+// Initial animation
+onMounted(() => {
+  animateTextIn()
+})
+</script>
+
 <style scoped>
-.tph {
-  margin-left: 8vw;
-  margin-top: 200px;
-  font-size: clamp(5px, 1.5rem, 28px);
+.parallax {
+  background-attachment: fixed;
 }
 
-.sbh {
-  margin-left: 11vw;
-  margin-top: 0.4vw;
-
-  font-size: clamp(5px, 2rem, 35px);
-  z-index: 3;
+.carousel-style {
+  box-shadow:
+    rgba(52, 82, 152, 0.7) 0px 5px,
+    rgba(73, 110, 195, 0.3) 0px 15px,
+    rgba(73, 110, 195, 0.2) 0px 30px,
+    rgba(73, 110, 195, 0.1) 0px 60px,
+    rgba(73, 110, 195, 0.05) 0px 90px;
+  ;
 }
 
-.desc {
-  margin-left: 11vw;
-  margin-top: 0.4vw;
-  font-size: clamp(5px, 1rem, 28px);
-  max-width: 20rem;
-  z-index: 0;
-}
-
-.tph,
-.sbh,
-.desc {
+.titlePhrase,
+.subtitlePhrase,
+.description {
   align-self: center !important;
   visibility: hidden;
   opacity: 0;
   color: white;
-}
-
-@keyframes mymove {
-  from {
-    margin-top: 25vh;
-    display: none;
-    opacity: 0;
-  }
-
-  to {
-    margin-top: 30vh;
-    display: block;
-    opacity: 1;
-  }
+  z-index: 3;
+  position: relative;
 }
 
 .v-window-x-transition-enter-active,
@@ -80,7 +181,6 @@
 .new-transition-leave,
 .new-transition-leave-to {
   transition: 2000ms;
-  /* here you can define your desired time for transition */
 }
 
 .new-transition-enter,
@@ -88,126 +188,3 @@
   opacity: 0;
 }
 </style>
-<script>
-
-import gsap from "gsap";
-import TextPlugin from "gsap/TextPlugin.js";
-import ScrollTrigger from "gsap/ScrollTrigger.js";
-import { Power4 } from "gsap";
-gsap.registerPlugin(TextPlugin, ScrollTrigger);
-
-import DataMixin from "@/components/global/mixins/DataMixin";
-export default {
-  mixins: [DataMixin],
-  mounted() {
-    const tph = document.getElementsByClassName("tph");
-    const sbh = document.getElementsByClassName("sbh");
-    const desc = document.getElementsByClassName("desc");
-
-    gsap
-      .timeline()
-      .to(tph, {
-        duration: 1,
-        "margin-left": "11vw",
-        autoAlpha: 1,
-        opacity: 1,
-        ease: Power4.easeOut,
-      })
-      .to(".sbh", {
-        duration: 1,
-        opacity: 1,
-        autoAlpha: 1,
-        text: this.solutionsData[0].title,
-      })
-      .to(".desc", {
-        duration: 1.5,
-        opacity: 1,
-        autoAlpha: 1,
-        ease: Power4.easeOut,
-      });
-
-    //this.typingAnimation();
-  },
-
-  data() {
-    return {
-      currentCarouslePage: 0,
-      items: [
-        {
-          src: "img6.jpg",
-        },
-        {
-          src: "img5.jpg",
-        },
-        {
-          src: "img3.jpg",
-        },
-      ],
-    };
-  },
-  methods: {
-    animateUpHead(e) {
-      const tph = document.getElementsByClassName("tph");
-      let sbh = document.getElementsByClassName("sbh");
-      const desc = document.getElementsByClassName("desc");
-      if ((tph, sbh, desc)) {
-        gsap.to(".desc", {
-          display: "none",
-          autoAlpha: -1,
-          opacity: 0,
-        });
-        let xMargin = 0;
-        this.xMargin = this.$vuetify.breakpoint.smAndDown ? 80 : 120;
-        gsap.timeline().to([tph], {
-          duration: 0.2,
-          "margin-left": "8vw",
-          autoAlpha: -1,
-          opacity: 0,
-          ease: Power4.easeOut,
-        });
-
-        gsap.to(".sbh", {
-          display: "none",
-          autoAlpha: -1,
-          opacity: 0,
-          text: "",
-          ease: Power4.easeOut,
-        });
-      }
-      this.xMargin = this.$vuetify.breakpoint.smAndDown ? 100 : 150;
-      setTimeout(() => {
-        sbh = document.getElementsByClassName("sbh");
-        sbh.innerHTML = "";
-        gsap
-          .timeline()
-          .to(tph, {
-            duration: 1,
-            "margin-left": "11vw",
-            autoAlpha: 1,
-            opacity: 1,
-            ease: Power4.easeOut,
-          })
-          .to(".sbh", {
-            duration: 1,
-            opacity: 1,
-            autoAlpha: 1,
-            display: "block",
-            text: this.solutionsData[this.currentCarouslePage].title,
-          })
-          .to(".desc", {
-            duration: 0.5,
-            opacity: 1,
-            autoAlpha: 1,
-            display: "block",
-            ease: Power4.easeOut,
-          });
-      }, 1200);
-    },
-    updateIndex(e) {
-      this.currentCarouslePage = e;
-      this.animateUpHead(e);
-    },
-  }
-
-}
-</script>
