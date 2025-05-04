@@ -1,5 +1,6 @@
 <template>
-  <v-btn :small="smAndDown" icon="fas fa-angle-up" rounded="pill" flat tile class="go-up-btn" @click="goToId('nav')" />
+  <v-btn :small="smAndDown" icon="ri-arrow-up-s-line" rounded="pill" flat tile class="go-up-btn"
+    @click="goToId('nav')" />
 </template>
 
 <style scoped>

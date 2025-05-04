@@ -1,10 +1,20 @@
 <template>
   <div class="parallax">
-    <v-carousel next-icon="fas fa-arrow-right" prev-icon="fas fa-arrow-left" class="mt-n16 carousel-style"
-      v-model="currentCarouselPage" progress show-arrows-on-hover interval="6000" height="100vh" cycle>
-      <v-carousel-item v-for="(item, i) in items" cover :key="i" :src="getImageUrl(item.src)" class="pa-0 ma-0">
-        <div class="title-phrase montserrat-alternates-extrabold" :style="textStyles.titlePhrase">ITEM provides</div>
-        <div class="subtitle-phrase montserrat-alternates-extrabold" :style="textStyles.subtitlePhrase">
+    <v-carousel class="mt-n16 carousel-style" v-model="currentCarouselPage" progress show-arrows-on-hover
+      interval="6000" height="100vh" cycle>
+      <template #next="{ props }">
+        <v-btn @click="props.onClick()" variant="plain" size="100" rounded="pill" color="surface" density="comfortable">
+          <v-icon size="70" icon="ri-arrow-right-wide-line" />
+        </v-btn>
+      </template>
+      <template #prev="{ props }">
+        <v-btn @click="props.onClick()" variant="plain" size="100" rounded="pill" color="surface" density="comfortable">
+          <v-icon size="70" icon="ri-arrow-left-wide-line" />
+        </v-btn>
+      </template>
+      <v-carousel-item v-for="(item, i) in items" cover :key="i" :src="getImageUrl(item.src)">
+        <div class="titlePhrase montserrat-alternates-extrabold" :style="textStyles.titlePhrase">ITEM provides</div>
+        <div class="subtitlePhrase montserrat-alternates-extrabold" :style="textStyles.subtitlePhrase">
           {{ solutionsData[i]?.title }}
         </div>
         <div class="description" :style="textStyles.description">
@@ -27,9 +37,9 @@ gsap.registerPlugin(TextPlugin, ScrollTrigger)
 
 // Props or data
 const items = ref([
-  { src: 'img6.jpg' },
+  { src: 'BluePlanets.png' },
   { src: 'img5.jpg' },
-  { src: 'img3.jpg' }
+  { src: 'DarkBlueTechnology.jpg' }
 ])
 
 const currentCarouselPage = ref(0)
@@ -75,14 +85,14 @@ const animateTextOut = () => {
       opacity: 0,
       ease: Power4.easeOut
     })
-    .to('.title-phrase', {
+    .to('.titlePhrase', {
       duration: 0.2,
       marginLeft: '8vw',
       autoAlpha: 0,
       opacity: 0,
       ease: Power4.easeOut
     }, 0)
-    .to('.subtitle-phrase', {
+    .to('.subtitlePhrase', {
       duration: 0.2,
       autoAlpha: 0,
       opacity: 0,
@@ -93,14 +103,14 @@ const animateTextOut = () => {
 
 const animateTextIn = () => {
   return gsap.timeline()
-    .to('.title-phrase', {
+    .to('.titlePhrase', {
       duration: 1,
       marginLeft: textStyles.value.titlePhrase.marginLeft,
       autoAlpha: 1,
       opacity: 1,
       ease: Power4.easeOut
     })
-    .to('.subtitle-phrase', {
+    .to('.subtitlePhrase', {
       duration: 1,
       opacity: 1,
       autoAlpha: 1,
@@ -115,7 +125,7 @@ const animateTextIn = () => {
 }
 
 // Handle carousel changes
-watch(currentCarouselPage, async (newVal, oldVal) => {
+watch(currentCarouselPage, async (_, __) => {
   await animateTextOut()
   animateTextIn()
 })
@@ -141,8 +151,8 @@ onMounted(() => {
   ;
 }
 
-.title-phrase,
-.subtitle-phrase,
+.titlePhrase,
+.subtitlePhrase,
 .description {
   align-self: center !important;
   visibility: hidden;

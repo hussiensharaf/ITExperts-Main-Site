@@ -1,56 +1,49 @@
 <template>
   <div id="nav">
-    <v-app-bar class="elevation-0 border" :absolute="smAndDown" :fixed="smAndDown" :style="appBarStyle">
-
-      <v-app-bar-title>
-        <div class="d-flex" style="width: 120px; height: 100px">
-          <img src="@/assets/logo.png" alt="Company Logo" @click="goToId('nav')" class="clickable-logo"
-            :style="{ filter: logoFilter }" />
-        </div>
-      </v-app-bar-title>
-
-      <v-list class="horizontal d-flex transparent" v-if="!smAndDown">
-        <v-list-item v-for="(item, index) in navItems" :key="index" @click="goTo(index)">
-          <v-list-item-title>
-            <a class="nav-item text-decoration-none d-flex" :href="item.ref" :style="{ color: textColor }">
-              <v-icon size="small" class="mr-3" :icon="item.icon" />
-              {{ item.name }}
-            </a>
-          </v-list-item-title>
-        </v-list-item>
-      </v-list>
-      <template #append>
-        <v-spacer></v-spacer>
-        <v-app-bar-nav-icon color="surface" v-if="smAndDown" @click="drawer = true" />
-      </template>
-
-      <!-- Rest of your template remains the same -->
-    </v-app-bar>
-    <v-navigation-drawer v-if="smAndDown" v-model="drawer" order="-1" :style="appBarStyle" max-width="100%" temporary
-      app location="left" class="d-flex flex-column">
-      <v-row no-gutters justify="end">
-        <v-icon color="surface" class="pa-4" @click="drawer = false">
-          fas fa-times
-        </v-icon>
-      </v-row>
-      <v-list dense class="mx-auto" width="100%">
-        <v-list-item-group>
-          <v-list-item @click="drawer = false" v-for="(item, index) in navItems" :key="index * 5">
-            <v-list-item-title @click="tab = index">
-              <v-icon color="surface" size="small" class="mr-4" :icon="item.icon"></v-icon>
-              <a :href="item.ref" class="nav-item">
+    <v-app-bar class="elevation-0 border-b" :absolute="smAndDown" :fixed="smAndDown" :style="appBarStyle">
+      <v-container>
+        <v-row no-gutters justify="center">
+          <v-col cols="12" md="6">
+            <div class="d-flex" style="width: 140px; height: 120px">
+              <img src="@/assets/logo.png" @click="goToId('nav')" class="clickable-logo"
+                :style="{ filter: logoFilter }" />
+            </div>
+          </v-col>
+          <v-col v-if="!smAndDown" class="d-flex justify-end">
+            <v-list-item v-for="(item, index) in navItems" :key="index" @click="goTo(index)">
+              <a class="nav-item" :href="item.ref" :style="{ color: textColor }">
+                <v-icon size="14" class="mr-3" :icon="item.icon" />
                 {{ item.name }}
               </a>
-            </v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+            </v-list-item>
+          </v-col>
+        </v-row>
+      </v-container>
+      <template #append>
+        <v-spacer></v-spacer>
+        <v-app-bar-nav-icon icon="ri-menu-3-line" color="surface" v-if="smAndDown" @click="drawer = true" />
+      </template>
+
+    </v-app-bar>
+    <v-navigation-drawer v-if="smAndDown" v-model="drawer" order="-1" :style="appBarStyle" max-width="100%" temporary
+      app location="left">
+      <v-row no-gutters justify="end">
+        <v-icon icon="ri-close-line" :color="textColor" class="pa-6" @click="drawer = false" />
+      </v-row>
+
+      <v-list-item @click="drawer = false" v-for="(item, index) in navItems" :key="index * 5">
+        <a :href="item.ref" class="nav-item">
+          <v-icon size="x-small" :color="textColor" class="mr-3" :icon="item.icon" />
+          {{ item.name }}
+        </a>
+      </v-list-item>
     </v-navigation-drawer>
   </div>
 </template>
 <script setup>
-import { useDisplay } from "vuetify";
-import { ref, computed, watch } from "vue";
+
+import { useDisplay } from "vuetify"
+import { ref, computed, watch } from "vue"
 import { DataMixin } from '../../composables/DataMixin'
 import Mixin from './mixins/Mixin'
 
@@ -63,9 +56,9 @@ const logoFilter = ref('grayscale(1) brightness(7)')
 const textColor = ref('rgb(226, 228, 237)')
 
 const navItems = ref([
-  { name: "Our Solutions", icon: "fas fa-globe", ref: '#solution' },
-  { name: "Products", icon: "fas fa-shopping-bag", ref: '#products' },
-  { name: "Contact Us", icon: "fas fa-phone", ref: '#contact' }
+  { name: "Our Solutions", icon: "ri-global-line", ref: '#solution' },
+  { name: "Products", icon: "ri-shopping-bag-2-line", ref: '#products' },
+  { name: "Contact Us", icon: "ri-phone-line", ref: '#contact' }
 ])
 
 
@@ -73,7 +66,7 @@ const appBarStyle = computed(() => ({
   backdropFilter: 'blur(28px)',
   background: scrollPosition.value < 600
     ? 'linear-gradient(135deg, rgba(27, 32, 50, 0.1) 0%, rgba(53, 153, 176, 0.05) 100%)'
-    : 'white',
+    : 'surface',
   transition: 'all 0.3s ease'
 }))
 
@@ -83,7 +76,6 @@ watch(scrollPosition, (newVal) => {
     scrollPercent = 3
   logoFilter.value = `grayscale(${scrollPercent - 1}) brightness(${scrollPercent})`
 
-  // Adjust text color
   textColor.value = newVal < 600
     ? 'rgb(226, 228, 237)'
     : 'rgb(27, 32, 50)'
@@ -95,13 +87,12 @@ const goTo = (index) => {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 .v-list {
   background-color: transparent;
 }
 
 .clickable-logo {
-
   cursor: pointer;
   filter: grayscale(1) brightness(2.2);
   transition: filter 0.3s ease;
@@ -116,7 +107,7 @@ const goTo = (index) => {
 }
 
 .horizontal {
-  margin-left: 100px !important;
+  display: flex;
 }
 
 .v-list-item {
@@ -133,29 +124,19 @@ const goTo = (index) => {
 
 }
 
-a.nav-item {
+
+.text-color {
   color: v-bind(textColor);
-  position: relative;
-  text-decoration: none;
+}
+
+@import "@/assets/main.scss";
+
+.nav-item {
+  @extend .text-color;
+  @extend .redirect-btn;
 
   &::after {
-    transition: all 0.4s ease-out;
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 2px;
     background-color: v-bind(textColor);
-    width: 0;
-  }
-
-  &:hover {
-    color: rgb(var(--v-theme-on-surface-light));
-    width: 100%;
-  }
-
-  &:hover::after {
-    width: 100%;
   }
 }
 

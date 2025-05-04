@@ -6,17 +6,20 @@ export function DataMixin() {
         {
             title: "Software Solutions",
             subTitle: "websites, cloud based Solutions, data analysis, data integrations and data synchronization systems",
-            icon: "fas fa-globe",
+            icon: "ri-global-fill",
+            image: "global.png"
         },
         {
             title: "System integration",
             subTitle: "with us you can have your new system or integrate with existing systems or cloud services",
-            icon: "fas fa-project-diagram",
+            icon: "ri-bar-chart-fill",
+            image: "integrations.png"
         },
         {
             title: "Hosting",
             subTitle: "we provide domain names, websites hosting, and dataBases hosting, maintinance and monitoring",
-            icon: "fa fa-server",
+            icon: "ri-server-fill",
+            image: "servers.png"
         },
     ])
 
